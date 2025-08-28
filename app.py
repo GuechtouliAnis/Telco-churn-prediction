@@ -34,11 +34,3 @@ if InternetService!='No internet service':
                             0)
 
 c1, c2, c3 = st.columns([1.5, 1, 1.5])
-
-## Extract logical relations between variables
-## if no internet -> all internet vars "NO" disabled
-## If no total charges and tenure and monthly charges -> calculate it
-## if tenure = 0  and total charges > 0 -> error
-## If no phone -> multiple lines = no phone
-## senior citizen = 0 and dependent -> error?
-## 

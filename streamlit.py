@@ -35,50 +35,70 @@ var_column1, var_column2, var_column3 = st.columns([1, 1, 1],
                                                    border=False)
 
 gender = var_column1.selectbox('Gender',
-                               (["Male", "Female"]))
+                               ["Male", "Female"],
+                               help="Select the customer's gender.")
 
 PhoneServices = var_column1.selectbox('Phone Service',
-                                        (["No phone service", "One phone", "Multiple phones"]))
+                                      ["No phone service", "One phone", "Multiple phones"],
+                                      help="Select the type of phone service the customer has.")
 
 InternetService = var_column1.selectbox('Internet Service',
-                                        (["No internet service", "DSL", "Fiber optic"]))
+                                        ["No internet service", "DSL", "Fiber optic"],
+                                        help="Select the type of internet service the customer has, if any.")
 
 PaymentMethod = var_column1.selectbox('Payment Method',
-                                        (["Mailed check", "Electronic check",
-                                          "Bank transfer (automatic)", "Credit card (automatic)"]))
+                                      ["Mailed check", "Electronic check",
+                                       "Bank transfer (automatic)", "Credit card (automatic)"],
+                                      help="Select the method the customer uses to pay their bills.")
 
-SeniorCitizen = var_column2.radio('Senior Citizen',
-                                  (["Yes", "No"]),
-                                  horizontal=True)
+Contract = var_column2.selectbox('Contract Type',
+                                 ["Month-to-month", "One year", "Two year"],
+                                 help="Select the type of contract the customer has with the company.")
 
-Partner = var_column2.radio('Partner',
-                            (["Yes", "No"]),
-                            horizontal=True)
-
-Dependents = var_column2.radio('Dependents',
-                               (["Yes", "No"]),
-                               horizontal=True)
-
-PaperlessBilling = var_column2.radio('Paperless Billing',
-                                     (["Yes", "No"]),
-                                     horizontal=True)
-
-Tenure = var_column3.number_input('Tenure',
+Tenure = var_column2.number_input('Tenure',
                                   min_value=0,
                                   max_value=100,
                                   value="min",
-                                  step=1)
+                                  step=1,
+                                  help="Enter the number of months the customer has been with the company.")
 
-MonthlyCharges = var_column3.number_input('Monthly Charges',
+MonthlyCharges = var_column2.number_input('Monthly Charges',
                                           min_value=5.0,
                                           max_value=200.0,
                                           value="min",
-                                          step=0.05)
+                                          step=0.05,
+                                          help="Enter the monthly charges billed to the customer.")
 
-OnlineServices = var_column3.multiselect("Online Services",
-                                         ("Online Security", "OnlineBackup", "DeviceProtection", "TechSupport",
-                                          "StreamingTV", "StreamingMovies"))
+internet_disabled = True if InternetService == "No internet service" else False
 
-Contract = var_column3.selectbox('Contract Type',
-                                 (["Month-to-month", "One year", "Two year"]))
+default_services = [] if internet_disabled else []
 
+OnlineServices = var_column2.multiselect("Online Services",
+                                         ["Online Security", "OnlineBackup", "DeviceProtection", "TechSupport",
+                                          "StreamingTV", "StreamingMovies"],
+                                         default=default_services,
+                                         disabled=internet_disabled,
+                                         help="Select the online services the customer subscribes to (if internet is available).")
+
+if internet_disabled:
+    OnlineServices = []
+
+SeniorCitizen = var_column3.radio('Senior Citizen',
+                                  ["Yes", "No"],
+                                  horizontal=True,
+                                  help="Indicate if the customer is a senior citizen.")
+
+Partner = var_column3.radio('Partner',
+                            ["Yes", "No"],
+                            horizontal=True,
+                            help="Indicate if the customer has a partner.")
+
+Dependents = var_column3.radio('Dependents',
+                               ["Yes", "No"],
+                               horizontal=True,
+                               help="Indicate if the customer has dependents.")
+
+PaperlessBilling = var_column3.radio('Paperless Billing',
+                                     ["Yes", "No"],
+                                     horizontal=True,
+                                     help="Select whether the customer uses paperless billing.")
