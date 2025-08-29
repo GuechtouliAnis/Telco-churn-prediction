@@ -87,26 +87,6 @@ The application offers **6 optimized models** with intelligent selection:
 </p>
 
 
-## 🔧 Technical Optimizations
-
-### Performance Enhancements
-- **Optimized caching**: `@st.cache_resource` for model loading
-- **Reduced recomputation**: Static configurations moved to constants
-- **Efficient layout**: Streamlined container structure
-- **Error handling**: Graceful degradation with user feedback
-
-### Code Quality
-- **Modular architecture**: Separated concerns with focused functions
-- **Type safety**: Proper input validation and error handling
-- **Clean structure**: Enhanced readability and maintainability
-- **Documentation**: Comprehensive docstrings and comments
-
-### User Experience
-- **Compact design**: Reduced whitespace and better space utilization
-- **Loading states**: Progress indicators during prediction
-- **Responsive layout**: Works well on different screen sizes
-- **Accessibility**: Proper contrast and semantic markup
-
 ## 📦 Installation & Setup
 
 ### Prerequisites
