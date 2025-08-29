@@ -79,7 +79,7 @@ The Streamlit app provides an intuitive interface:
    - Displays churn probability as a percentage (metric card).
 
 <p align="center">
-  <img src="imgs/image5.png" alt="Churn App Screenshot" width="600"/>
+  <img src="imgs/image4.png" alt="Churn App Screenshot" width="600"/>
 </p>
 
 ## How to Run
