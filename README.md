@@ -79,8 +79,6 @@ The application offers **6 optimized models** with intelligent selection:
 ### 3. **Advanced Prediction Results**
 - **Visual indicators**: Color-coded risk levels (🟢 Low Risk / 🔴 High Risk)
 - **Confidence scoring**: Probability percentage with model confidence
-- **Risk factor analysis**: Automatic identification of churn drivers
-- **Actionable insights**: Specific factors contributing to churn risk
 
 <p align="center">
   <img src="imgs/image4.png" alt="Prediction Results" width="600"/>
