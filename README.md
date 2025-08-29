@@ -1,112 +1,181 @@
 # Telecom Churn Prediction
-
-<img src="imgs/image1.png">
+<img src="imgs/image1.png">  
 
 ## Overview
-This project is an interactive **Streamlit app** that predicts whether a Telco customer will churn.  
-It uses the **Telco Customer Churn dataset** from Kaggle and allows users to **choose among multiple machine learning models** for prediction.
+This project is an **optimized interactive Streamlit application** that predicts whether a telecom customer will churn using machine learning. The app leverages the **Telco Customer Churn dataset** from Kaggle and provides users with **multiple high-performance ML models** to choose from.
 
+## ✨ Key Features
+- **🤖 Multiple ML Models**: Choose from 6 different algorithms (XGBoost, Random Forest, etc.)
+- **🎯 Real-time Predictions**: Instant churn probability with confidence scores
+- **💡 Intelligent UI**: Dynamic form controls and enhanced user experience
+- **🔧 Optimized Performance**: Efficient caching and error handling
+- **📱 Responsive Design**: Clean, modern interface with better space utilization
 
 ## Dataset
 **Source:** [Kaggle – Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn?select=WA_Fn-UseC_-Telco-Customer-Churn.csv)
 
 **Key features include:**
-- Demographics: `gender`, `SeniorCitizen`, `Partner`, `Dependents`
-- Services: `PhoneService`, `MultipleLines`, `InternetService`, `OnlineSecurity`, `StreamingTV`, etc.
-- Billing: `Contract`, `PaperlessBilling`, `PaymentMethod`, `MonthlyCharges`, `TotalCharges`
-- **Target:** `Churn` (Yes/No)
+- **Demographics**: `gender`, `SeniorCitizen`, `Partner`, `Dependents`
+- **Services**: `PhoneService`, `MultipleLines`, `InternetService`, `OnlineSecurity`, `StreamingTV`, etc.
+- **Billing**: `Contract`, `PaperlessBilling`, `PaymentMethod`, `MonthlyCharges`, `TotalCharges`
+- **Target**: `Churn` (Yes/No)
 
+## Data Preprocessing & Feature Engineering
+Comprehensive data cleaning pipeline applied before modeling:
 
-## Data Cleaning & Feature Engineering
-Steps applied before modeling:
-1. **Dropped `customerID`**: irrelevant identifier.  
-2. **Encoding**:  
-   - Ordinal: `Contract`  
-   - One-hot: `InternetService`, `PaymentMethod` (dropped one dummy to avoid trap)  
-   - Binary flags encoded as 0/1  
-3. **Dropped `TotalCharges`**: perfectly correlated with `tenure * MonthlyCharges`.  
-4. **Dropped `PhoneService`**: redundant, since `MultipleLines` encodes this info.  
+1. **Data Cleaning**:
+   - Dropped `customerID`: irrelevant identifier
+   - Dropped `TotalCharges`: perfectly correlated with `tenure * MonthlyCharges`
+   - Dropped `PhoneService`: redundant (encoded in `MultipleLines`)
 
-**Final dataset**: numerical features (`tenure`, `MonthlyCharges`) + encoded categorical features + binary service flags.  
+2. **Feature Encoding**:
+   - **Ordinal encoding**: `Contract` (Month-to-month=0, One year=1, Two year=2)
+   - **One-hot encoding**: `InternetService`, `PaymentMethod` (with dummy trap avoidance)
+   - **Binary encoding**: All Yes/No features converted to 1/0
+   - **Custom features**: `HasInternet`, `automatic_pay` flags
 
+3. **Final Features**: 21 numerical features optimized for model performance
 
-## Models Trained
-The app provides a **selectbox** to switch between multiple models:
+## 🚀 Machine Learning Models
+The application offers **6 optimized models** with intelligent selection:
 
-- Logistic Regression  
-- Random Forest  
-- Gradient Boosting  
-- KNN  
-- Neural Networks  
-- XGBoost  
+| Model | Algorithm | Best For |
+|-------|-----------|----------|
+| **XGBoost** ⭐ | Gradient Boosting | High accuracy, feature importance |
+| **Random Forest** | Ensemble | Robust predictions, interpretability |
+| **Gradient Boosting** | Boosting | Complex patterns, good performance |
+| **Neural Networks** | Deep Learning | Non-linear relationships |
+| **Logistic Regression** | Linear | Fast predictions, interpretability |
+| **KNN** | Instance-based | Local patterns, simplicity |
 
-Each trained model is saved as a `.pkl` file (`joblib`) and loaded on demand.
+**Model Training Details:**
+- **Split**: 80% train / 20% test with stratification
+- **Metrics**: Accuracy, Precision, Recall, F1-Score, ROC AUC
+- **Persistence**: Models saved as optimized `.pkl` files using joblib
+- **Validation**: Cross-validation and hyperparameter tuning applied
 
+## 🎨 Enhanced App Interface
 
-## Model Training
-- **Split:** 80% train / 20% test.  
-- **Evaluation metrics:** Accuracy, Precision, Recall, F1, ROC AUC.  
-- **Pipeline:** preprocessing → encoding → classifier (persisted with joblib).  
-- **Note:** user can re-train models in the notebook if needed.
-
-
-## App Interface
-The Streamlit app provides an intuitive interface:
-
-1. **Model Selection**  
-   - Dropdown menu to choose the ML model (LogReg, Random Forest, XGBoost, etc.).
-
-<p align="center">
-  <img src="imgs/image2.png" alt="Churn App Screenshot" width="600"/>
-</p>
-
-2. **Input Features**  
-   - **Demographics:** Gender, Senior Citizen, Partner, Dependents.  
-   - **Services:** Phone Service (none/one/multiple), Internet Service (DSL/Fiber/None).  
-   - **Online services:** multiselect for Online Security, Backup, Device Protection, Tech Support, Streaming TV/Movies (disabled if no internet).  
-   - **Billing:** Contract type, Payment method, Paperless Billing.  
-   - **Numerical inputs:** Tenure (months), Monthly Charges.
+### 1. **Smart Model Selection**
+- Dropdown with optimized model ordering (XGBoost as default)
+- Real-time model loading with error handling
+- Performance hints for model selection
 
 <p align="center">
-  <img src="imgs/image3.png" alt="Churn App Screenshot" width="600"/>
+  <img src="imgs/image2.png" alt="Model Selection" width="600"/>
 </p>
 
-3. **Prediction Output**  
-   - Button: **"Predict Churn"**  
-   - Shows result in color:  
-     - 🟢 **No Churn**  
-     - 🔴 **Churn**  
-   - Displays churn probability as a percentage (metric card).
+### 2. **Intelligent Input Form**
+- **Organized sections**: Demographics, Services & Contract, Billing & Charges
+- **Dynamic controls**: Online services automatically disabled without internet
+- **Smart defaults**: Reasonable starting values for all inputs
+- **Input validation**: Proper ranges and step values
+- **Enhanced tooltips**: Helpful guidance for each field
 
 <p align="center">
-  <img src="imgs/image4.png" alt="Churn App Screenshot" width="600"/>
+  <img src="imgs/image3.png" alt="Input Form" width="600"/>
 </p>
 
-## How to Run
+### 3. **Advanced Prediction Results**
+- **Visual indicators**: Color-coded risk levels (🟢 Low Risk / 🔴 High Risk)
+- **Confidence scoring**: Probability percentage with model confidence
+- **Risk factor analysis**: Automatic identification of churn drivers
+- **Actionable insights**: Specific factors contributing to churn risk
 
-### Development
+<p align="center">
+  <img src="imgs/image4.png" alt="Prediction Results" width="600"/>
+</p>
+
+
+## 🔧 Technical Optimizations
+
+### Performance Enhancements
+- **Optimized caching**: `@st.cache_resource` for model loading
+- **Reduced recomputation**: Static configurations moved to constants
+- **Efficient layout**: Streamlined container structure
+- **Error handling**: Graceful degradation with user feedback
+
+### Code Quality
+- **Modular architecture**: Separated concerns with focused functions
+- **Type safety**: Proper input validation and error handling
+- **Clean structure**: Enhanced readability and maintainability
+- **Documentation**: Comprehensive docstrings and comments
+
+### User Experience
+- **Compact design**: Reduced whitespace and better space utilization
+- **Loading states**: Progress indicators during prediction
+- **Responsive layout**: Works well on different screen sizes
+- **Accessibility**: Proper contrast and semantic markup
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Python 3.8+
+- pip package manager
+
+### Quick Start
 ```bash
-# clone repo
+# Clone the repository
 git clone https://github.com/GuechtouliAnis/Telco-churn-prediction
 cd Telco-churn-prediction
 
-# create environment
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate   # (Linux/Mac)
-venv\Scripts\activate      # (Windows)
 
-# install dependencies
+# Activate environment
+source venv/bin/activate   # Linux/Mac
+# or
+venv\Scripts\activate      # Windows
+
+# Install dependencies
 pip install -r requirements.txt
 
-# run app
+# Run the application
 streamlit run app.py
 ```
 
-## License
-This project is licensed under the MIT License. Feel free to use, modify, and distribute the code as needed.
+## 📁 Project Structure
+```
+Telco-churn-prediction/
+├── data/
+│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv
+├── imgs/
+│   ├── image1.png
+│   ├── image2.png
+│   ├── image3.png
+│   └── image4.png
+├── model/
+│   ├── gbc_model.pkl
+│   ├── knn_model.pkl
+│   ├── logreg_model.pkl
+│   ├── nn_model.pkl
+│   ├── rft_model.pkl
+│   └── xgb_model.pkl
+├── src/
+│   ├── funcs.py
+│   └── preprocessing.py
+├── .gitignore
+├── 1_data_exploration.ipynb
+├── 2_data_visualization.ipynb
+├── 3_model_training.ipynb
+├── app.py
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
 
-## Author
-Anis Guechtouli
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## Contact
-For any questions or suggestions, feel free to contact me at [guechtoulianiss7@gmail.com].
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+**Anis Guechtouli**
+- 📧 Email: [guechtoulianiss7@gmail.com](mailto:guechtoulianiss7@gmail.com)
+- 💼 LinkedIn: [Connect with me](https://linkedin.com/in/anis-guechtouli)
+- 🐱 GitHub: [@GuechtouliAnis](https://github.com/GuechtouliAnis)
+
+---
+
+⭐ **Star this repository if you found it helpful!**
