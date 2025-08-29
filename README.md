@@ -4,6 +4,8 @@
 ## Overview
 This project is an **optimized interactive Streamlit application** that predicts whether a telecom customer will churn using machine learning. The app leverages the **Telco Customer Churn dataset** from Kaggle and provides users with **multiple high-performance ML models** to choose from.
 
+🚀 **[👉 Try the Live App Here](https://telco-churn-prediction-aniss.streamlit.app/)**
+
 ## ✨ Key Features
 - **🤖 Multiple ML Models**: Choose from 6 different algorithms (XGBoost, Random Forest, etc.)
 - **🎯 Real-time Predictions**: Instant churn probability with confidence scores
